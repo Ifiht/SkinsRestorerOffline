@@ -22,7 +22,6 @@ import ch.jalu.injector.InjectorBuilder;
 import net.skinsrestorer.shared.log.SRLogLevel;
 import net.skinsrestorer.shared.log.SRLogger;
 import net.skinsrestorer.shared.log.SRPlatformLogger;
-import net.skinsrestorer.shared.update.UpdateCheckInit;
 
 import java.nio.file.Path;
 import java.util.List;
@@ -65,15 +64,6 @@ public class SRBootstrapper {
 
             if (SRPlugin.isUnitTest()) {
                 throw new AssertionError(t);
-            }
-        }
-
-        if (srPlugin != null && !srPlugin.isUpdaterInitialized()) {
-            isrLogger.log(SRLogLevel.WARNING, "Updater was not initialized, a error occurred while starting the plugin. Forcing updater to initialize.");
-            try {
-                srPlugin.initUpdateCheck(UpdateCheckInit.InitCause.ERROR);
-            } catch (Throwable t) {
-                isrLogger.log(SRLogLevel.SEVERE, "An unexpected error occurred while initializing the updater. Please check the console for more details.", t);
             }
         }
     }

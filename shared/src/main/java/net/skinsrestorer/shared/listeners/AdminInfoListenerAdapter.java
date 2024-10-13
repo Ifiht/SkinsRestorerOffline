@@ -25,7 +25,6 @@ import net.skinsrestorer.shared.plugin.SRPlugin;
 import net.skinsrestorer.shared.subjects.SRPlayer;
 import net.skinsrestorer.shared.subjects.messages.Message;
 import net.skinsrestorer.shared.subjects.permissions.PermissionRegistry;
-import net.skinsrestorer.shared.update.UpdateCheckInit;
 import net.skinsrestorer.shared.utils.SRHelpers;
 
 import javax.inject.Inject;
@@ -34,16 +33,11 @@ import javax.inject.Inject;
 public final class AdminInfoListenerAdapter {
     private final SRPlugin plugin;
     private final SRPlatformAdapter adapter;
-    private final UpdateCheckInit updateCheckInit;
 
     public void handleConnect(SRServerConnectedEvent event) {
         SRPlayer player = event.getPlayer();
 
         adapter.runAsync(() -> {
-            if (plugin.isOutdated() && updateCheckInit.getDownloader().isEmpty() && player.hasPermission(PermissionRegistry.SR)) {
-                player.sendMessage(Message.OUTDATED, Placeholder.parsed("platform", adapter.getPlatform().getPlatformDescription()));
-            }
-
             int version = SRHelpers.getJavaVersion();
             if (version < 17 && player.hasPermission(PermissionRegistry.SR)) {
                 player.sendMessage(Message.UNSUPPORTED_JAVA, Placeholder.parsed("version", String.valueOf(version)), Placeholder.parsed("platform", adapter.getPlatform().getPlatformDescription()));
