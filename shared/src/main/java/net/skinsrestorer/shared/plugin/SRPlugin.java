@@ -56,7 +56,6 @@ import net.skinsrestorer.shared.storage.adapter.mysql.MySQLAdapter;
 import net.skinsrestorer.shared.storage.adapter.mysql.MySQLProvider;
 import net.skinsrestorer.shared.subjects.SRSubjectWrapper;
 import net.skinsrestorer.shared.subjects.messages.MessageLoader;
-import net.skinsrestorer.shared.update.UpdateCheckInit;
 import net.skinsrestorer.shared.utils.MetricsCounter;
 import net.skinsrestorer.shared.utils.ReflectionUtil;
 import net.skinsrestorer.shared.utils.SRHelpers;
@@ -86,8 +85,6 @@ public class SRPlugin {
     private final List<Runnable> shutdownHooks = new ArrayList<>();
     @Getter
     private boolean outdated = false;
-    @Getter
-    private boolean updaterInitialized = false;
 
     public SRPlugin(Injector injector, Path dataFolder) {
         injector.register(SRPlugin.class, this);
@@ -240,16 +237,6 @@ public class SRPlugin {
         }
     }
 
-    public void initUpdateCheck(UpdateCheckInit.InitCause cause) {
-        if (updaterInitialized) {
-            return;
-        }
-
-        updaterInitialized = true;
-
-        injector.getSingleton(UpdateCheckInit.class).run(cause);
-    }
-
     public void setOutdated() {
         outdated = true;
     }
@@ -345,8 +332,6 @@ public class SRPlugin {
         injector.getSingleton(RecommendationsState.class).scheduleRecommendations();
 
         runJavaCheck();
-
-        initUpdateCheck(UpdateCheckInit.InitCause.STARTUP);
 
         if (serverPlugin == null || !serverPlugin.isProxyMode()) {
             adapter.runAsync(this::runServiceCheck);
