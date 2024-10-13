@@ -20,12 +20,10 @@ package net.skinsrestorer;
 import net.skinsrestorer.bukkit.SRBukkitAdapter;
 import net.skinsrestorer.bukkit.SRBukkitInit;
 import net.skinsrestorer.bukkit.logger.BukkitConsoleImpl;
-import net.skinsrestorer.bukkit.update.UpdateDownloaderGithub;
 import net.skinsrestorer.bukkit.utils.PluginJarProvider;
 import net.skinsrestorer.shared.log.JavaLoggerImpl;
 import net.skinsrestorer.shared.plugin.SRBootstrapper;
 import net.skinsrestorer.shared.plugin.SRServerPlugin;
-import net.skinsrestorer.shared.update.DownloaderClassProvider;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.command.CommandMap;
@@ -91,7 +89,6 @@ public class LoadTest {
         SimplePluginManager pluginManager = mock(SimplePluginManager.class);
         when(pluginManager.getPlugins()).thenReturn(new JavaPlugin[0]);
         when(server.getPluginManager()).thenReturn(pluginManager);
-        when(server.getUpdateFolderFile()).thenReturn(tempDir.toFile());
 
         Bukkit.setServer(server);
 
@@ -110,8 +107,7 @@ public class LoadTest {
                 List.of(
                         new SRBootstrapper.PlatformClass<>(JavaPlugin.class, plugin),
                         new SRBootstrapper.PlatformClass<>(Server.class, server),
-                        new SRBootstrapper.PlatformClass<>(PluginJarProvider.class, () -> pluginFile),
-                        new SRBootstrapper.PlatformClass<>(DownloaderClassProvider.class, () -> UpdateDownloaderGithub.class)
+                        new SRBootstrapper.PlatformClass<>(PluginJarProvider.class, () -> pluginFile)
                 ),
                 new JavaLoggerImpl(new BukkitConsoleImpl(server.getConsoleSender()), server.getLogger()),
                 true,

@@ -26,17 +26,6 @@ import java.util.Optional;
 
 public class MappingManager {
     private static final List<IMapping> MAPPINGS = List.of(
-            new Mapping1_18(),
-            new Mapping1_18_2(),
-            new Mapping1_19(),
-            new Mapping1_19_1(),
-            new Mapping1_19_2(),
-            new Mapping1_19_3(),
-            new Mapping1_19_4(),
-            new Mapping1_20(),
-            new Mapping1_20_2(),
-            new Mapping1_20_4(),
-            new Mapping1_20_5(),
             new Mapping1_21()
     );
 

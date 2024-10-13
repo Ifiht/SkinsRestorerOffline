@@ -27,18 +27,11 @@ develocity {
     }
 }
 
-setOf("shared", "propertyold", "propertynew").forEach {
-    include("multiver:bungee:$it")
-}
-
 setOf("shared", "v1-7", "spigot", "paper", "folia").forEach {
     include("multiver:bukkit:$it")
 }
 
 setOf(
-    "1-18", "1-18-2",
-    "1-19", "1-19-1", "1-19-2", "1-19-3", "1-19-4",
-    "1-20", "1-20-2", "1-20-4", "1-20-5",
     "1-21"
 ).forEach {
     include("mappings:mc-$it")
@@ -50,8 +43,6 @@ setupSRSubproject("api")
 setupSRSubproject("shared")
 
 setupSRSubproject("bukkit")
-setupSRSubproject("bungee")
-setupSRSubproject("velocity")
 
 setupSubproject("skinsrestorer") {
     projectDir = file("universal")
