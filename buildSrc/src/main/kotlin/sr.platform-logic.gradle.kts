@@ -11,7 +11,7 @@ val downgradePlatformBase = tasks.register<DowngradeJar>("downgradePlatformBase"
     dependsOn(tasks.shadowJar)
 
     inputFile = tasks.shadowJar.get().archiveFile
-    downgradeTo = JavaVersion.VERSION_1_8
+    downgradeTo = JavaVersion.VERSION_17
     archiveClassifier.set("downgraded-base")
 }
 
@@ -19,7 +19,7 @@ val downgradePlatformShadow = tasks.register<ShadeJar>("downgradePlatformShadow"
     dependsOn(downgradePlatformBase)
 
     inputFile = downgradePlatformBase.get().archiveFile
-    downgradeTo = JavaVersion.VERSION_1_8
+    downgradeTo = JavaVersion.VERSION_17
     archiveFileName.set(
         "SkinsRestorer-${
             project.name.substringAfter("skinsrestorer-").replaceFirstChar(Char::titlecase)
