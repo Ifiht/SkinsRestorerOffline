@@ -60,6 +60,6 @@ tasks {
         configureKyoriRelocations()
     }
     runServer {
-        minecraftVersion(libs.versions.runpaperversion.get())
+        minecraftVersion("1.21.1")
     }
 }

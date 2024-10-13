@@ -30,9 +30,13 @@ import net.skinsrestorer.shared.subjects.messages.SkinsRestorerLocale;
 import net.skinsrestorer.shared.subjects.permissions.SkinPermissionManager;
 import net.skinsrestorer.shared.utils.SRHelpers;
 
+import net.skinsrestorer.shared.log.SRLogger;
+
 import java.util.*;
 
 public class GUIUtils {
+
+
     public static PageInfo getGUIPage(SRPlayer player,
                                       SkinsRestorerLocale locale,
                                       SettingsManager settings,
@@ -48,6 +52,7 @@ public class GUIUtils {
                 .filter(source -> source.getPageType() == pageType)
                 .sorted(Comparator.comparingInt(GUIDataSource::getIndex))
                 .toList();
+
         int offset = page * SharedGUI.HEAD_COUNT_PER_PAGE;
         List<GUISkinEntry> skinPage = new ArrayList<>(SharedGUI.HEAD_COUNT_PER_PAGE);
 
@@ -55,6 +60,7 @@ public class GUIUtils {
         int currentIndex = 0;
         for (GUIDataSource source : enabledSources) {
             int sourceTotal = source.getTotalSkins();
+
             if (currentIndex + sourceTotal <= offset) {
                 currentIndex += sourceTotal;
                 continue;
@@ -102,6 +108,9 @@ public class GUIUtils {
                     .forEach(skinPage::add);
 
             if (sourceSkins.size() < sourceTotal - sourceOffset) {
+                //============================================//
+                //              FIX_ME_PLZ!!!!!!!!!           //
+                //============================================//
                 hasNextPage = true;
                 break;
             }

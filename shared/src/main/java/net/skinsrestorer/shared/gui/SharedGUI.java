@@ -107,8 +107,10 @@ public class SharedGUI {
                         Map.entry(ClickEventType.LEFT, new SRInventory.ClickEventAction(new SRProxyPluginMessage.GUIActionChannelPayload(new SRProxyPluginMessage.GUIActionChannelPayload.ClearSkinPayload()), true))
                 )
         ));
-
-        if (pageInfo.hasNext()) {
+        //============================================//
+        //              FIX_ME_PLZ!!!!!!!!!           //
+        //============================================//
+        if (true) { //pageInfo.hasNext()) {
             items.put(50, new SRInventory.Item(
                     SRInventory.MaterialType.ARROW,
                     locale.getMessageRequired(player, Message.SKINSMENU_NEXT_PAGE),
